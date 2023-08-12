@@ -17,6 +17,18 @@ class PlantsController < ApplicationController
     plant = Plant.create(plant_params)
     render json: plant, status: :created
   end
+  def update
+    if @plant.update(plant_params)
+      render json: @plant
+    else
+      render json: { errors: @plant.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @plant.destroy
+    head :no_content
+  end
 
   private
 
